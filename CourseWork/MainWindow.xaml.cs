@@ -1,6 +1,5 @@
-﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
+﻿using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,9 +24,16 @@ namespace CourseWork
     /// </summary>
     public partial class MainWindow : Window
     {
+        public PlotModel Model1 { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Model1 = new PlotModel() { Title = "test 1" };
+            Model1.Series.Add(new FunctionSeries(Math.Sqrt, 0, 25.1f, 0.1, "text f 1"));
+
+            pvMain.DataContext = this;
         }
     }
 }
