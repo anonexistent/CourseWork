@@ -140,12 +140,11 @@ namespace CourseWork
         /// - exp(x)
         /// - round(x)
         /// - sign(x)
-        /// 
-        /// </summary>
-        /// <param name="functionText"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-
+        ///         
+        /// /// </summary>
+        /// <param name="functionText">user input</param>
+        /// <param name="x">value</param>
+        /// <returns>a point ex for chart</returns>
         private double EvaluateFunction(string functionText, double x)
         {
             Expression expression = new Expression(functionText);
