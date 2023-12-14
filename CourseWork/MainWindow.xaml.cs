@@ -5,6 +5,7 @@ using NCalc;
 //  the best making clear
 using Expression = NCalc.Expression;
 using System;
+using System.Windows.Input;
 
 public delegate double Del(double x);
 
@@ -26,6 +27,7 @@ namespace CourseWork
             DataContext = this;
         }
 
+        //  x0y0 axis paint
         private void InitChart()
         {
             PlotModel.Axes.Add(new OxyPlot.Axes.LinearAxis
@@ -89,29 +91,50 @@ namespace CourseWork
 
             #region +-zero
 
+            this.Cursor = Cursors.Wait;
+
             string functionText = txtFunction.Text;
             LineSeries lineSeries = new LineSeries();
             lineSeries.Color = OxyColors.Blue;
 
-            for (double x = -10; x <= -0.1; x += 0.1)
+            for (double x = -25; x <= -0.1; x += 0.1)
             {
-                double y = EvaluateFunction(functionText, x);
-                lineSeries.Points.Add(new DataPoint(x, y));
+                try
+                {
+                    double y = EvaluateFunction(functionText, x);
+                    lineSeries.Points.Add(new DataPoint(x, y));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    break;
+                }
             }
 
-            for (double x = 0.1; x <= 10; x += 0.1)
+            for (double x = 0.1; x <= 25; x += 0.1)
             {
-                double y = EvaluateFunction(functionText, x);
-                lineSeries.Points.Add(new DataPoint(x, y));
+                try
+                {
+                    double y = EvaluateFunction(functionText, x);
+                    lineSeries.Points.Add(new DataPoint(x, y));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    break;
+                }
             }
 
             PlotModel.Series.Clear();
             PlotModel.Series.Add(lineSeries);
             PlotModel.InvalidatePlot(true);
 
+            this.Cursor = Cursors.Arrow;
+
             #endregion
         }
 
+        //  get points
         /// <summary>
         ///1. Trigonometric functions:
         /// - sin(x)
@@ -147,10 +170,19 @@ namespace CourseWork
         /// <returns>a point ex for chart</returns>
         private double EvaluateFunction(string functionText, double x)
         {
-            Expression expression = new Expression(functionText);
-            expression.Parameters["x"] = x;
-            var a = expression.Evaluate();
-            double result = Convert.ToDouble(a);
+            double result = double.PositiveInfinity;
+            try
+            {
+                Expression expression = new Expression(functionText);
+                expression.Parameters["x"] = x;
+                var a = expression.Evaluate();
+                result = Convert.ToDouble(a);
+            }
+            catch (Exception)
+            {
+
+            }
+            
             return result;
         }
 
@@ -163,8 +195,7 @@ namespace CourseWork
         }
     }
 
-    #region v 1
-
+    #region v 0
 //    public partial class MainWindow : Window
     //    {
     //        public PlotModel Model1 { get; set; } = new();
