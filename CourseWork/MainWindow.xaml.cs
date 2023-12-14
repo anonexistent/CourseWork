@@ -112,6 +112,40 @@ namespace CourseWork
             #endregion
         }
 
+        /// <summary>
+        ///1. Trigonometric functions:
+        /// - sin(x)
+        /// - cos(x)
+        /// - tan(x)
+        /// - asin(x)
+        /// - acos(x)
+        /// - atan(x)
+        ///
+        ///2. Logarithmic functions:
+        /// - log(x)
+        /// - log10(x)
+        ///
+        ///3. Arithmetic functions:
+        /// - abs(x)
+        /// - sqrt(x)
+        /// - pow(x, y)
+        ///
+        ///4. Statistical functions:
+        /// - min(x, y)
+        /// - max(x, y)
+        /// - avg(x, y, ...)
+        /// - sum(x, y, ...)
+        ///
+        ///5. Other:
+        /// - exp(x)
+        /// - round(x)
+        /// - sign(x)
+        /// 
+        /// </summary>
+        /// <param name="functionText"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+
         private double EvaluateFunction(string functionText, double x)
         {
             Expression expression = new Expression(functionText);
