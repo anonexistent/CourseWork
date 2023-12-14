@@ -23,7 +23,6 @@
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinWidth="250" VerticalAlignment="Center" >
             <TextBox x:Name="tbFunc" FontSize="24" KeyDown="tbFunc_KeyDown"/>
             <Button x:Name="btnGet" Content="result" FontSize="20" Margin="0 15 0 0" Click="btnGet_Click"/>
-
         </StackPanel>
         
     </Grid>
