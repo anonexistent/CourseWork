@@ -1,6 +1,7 @@
 ﻿using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using OxyPlot.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using org.mariuszgromada.math.mxparser;
+using System.Data;
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+using System.Reflection;
+using System.Windows.Media.Media3D;
+
+public delegate double Del(double x);
 
 namespace CourseWork
 {
@@ -25,13 +34,31 @@ namespace CourseWork
     /// </summary>
     public partial class MainWindow : Window
     {
-        public PlotModel Model1 { get; set; }
+        public PlotModel Model1 { get; set; } = new();
+        org.mariuszgromada.math.mxparser.Expression ex = new();
+
+        private static string begin = @"using System;
+namespace CourseWork
+{
+    public delegate double Del(double x);
+    public static class LambdaCreator 
+    {
+        public static Del Create()
+        {
+            return (x)=>";
+        private static string end = @";
+        }
+    }
+}";
 
         public MainWindow()
         {
             InitializeComponent();
 
-            Model1 = Cc();
+            Model1 = Dd(); // Используйте метод Aa() для инициализации начальной модели
+            pvMain.DataContext = this;
+
+            ex = new org.mariuszgromada.math.mxparser.Expression(); // Создаем экземпляр ex
             //Model1.Series.Add(new FunctionSeries(Math.Pow, -10f, 10f, 0.25f, "text f 1"));
 
             pvMain.DataContext = this;
@@ -81,10 +108,118 @@ namespace CourseWork
         {
             var model = new PlotModel() { Title = "test points 1" };
 
-
+            var series = new LineSeries();
+            for (double x = -150; x <= 150; x += 0.1)
+            {
+                ex.setArgumentValue("qx", x);
+                double y = ex.calculate();
+                series.Points.Add(new DataPoint(x, y));
+            }
+             model.Series.Add(series);
 
             return model;
         }
 
+        PlotModel Dd()
+        {
+            PlotModel model = new PlotModel() { Title = "test points 1" };
+
+            string functionText = tbFunc.Text;
+            FunctionSeries functionSeries = new FunctionSeries(x => EvaluateFunction(x, functionText), -10, 10, 0.1f, title: functionText);
+            Model1.Series.Clear();
+            Model1.Series.Add(functionSeries);
+            Model1.InvalidatePlot(true);
+
+            return Model1;
+        }
+
+        private void tbFunc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                UpdateModelWithFunction(tbFunc.Text); // Вызываем метод для обновления модели с новой функцией
+            }
+
+        }
+
+        private void UpdateModelWithFunction(string functionText)
+        {
+            FunctionSeries functionSeries = new FunctionSeries(x => EvaluateFunction(x, functionText), -10, 10, 0.1f, title: functionText);
+            Model1.Series.Clear();
+            Model1.Series.Add(functionSeries);
+            Model1.InvalidatePlot(true);
+        }
+
+        private void UpdateModelWithFunction2(string functionText)
+        {
+            FunctionSeries functionSeries = new FunctionSeries(x => EvaluateFunction(functionText, x), -10, 10, 1, title: functionText);
+            Model1.Series.Clear();
+            Model1.Series.Add(functionSeries);
+            Model1.InvalidatePlot(true);
+        }
+
+        private double EvaluateFunction(double x, string function)
+        {
+            double result = 0;
+            try
+            {
+                ex.setExpressionString(function);
+                ex.defineArgument("x", x);
+                result = ex.calculate();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return result;
+        }
+
+        private void btnGet_Click(object sender, RoutedEventArgs e)
+        {
+            //var a = this.EvaluateFunction(tbFunc.Text, 3f);
+            //MessageBox.Show("f(3)= " + a.ToString());
+
+            //UpdateModelWithFunction2(tbFunc.Text);
+
+            //Model1 = new();
+
+            ScatterSeries vs = new();
+            for (int i = -1000; i < 1000; i++)
+            {
+                ScatterErrorPoint a = new(i, EvaluateFunction(tbFunc.Text, i), 0, 0);
+                vs.Points.Add(a);
+                //vs.Points.Add(EvaluateFunction(tbFunc.Text,i));
+            }
+            Model1.Series.Add(vs);
+
+            //Model1.Axes.Clear();
+
+            Model1.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, MaximumPadding = 0.1, MinimumPadding = 0.1 });
+            Model1.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MaximumPadding = 0.1, MinimumPadding = 0.1 });
+
+            pvMain.DataContext = this;
+
+        }
+
+        private void btnGet_Click2(object sender, RoutedEventArgs e)
+        {
+            string middle = tbFunc.Text;
+            CSharpCodeProvider provider = new CSharpCodeProvider();
+            CompilerParameters parameters = new CompilerParameters();
+            parameters.GenerateInMemory = true;
+            parameters.ReferencedAssemblies.Add("System.dll");
+            CompilerResults results = provider.CompileAssemblyFromSource(parameters, begin + middle + end);
+            var cls = results.CompiledAssembly.GetType("MyNamespace.LambdaCreator");
+            var method = cls.GetMethod("Create", BindingFlags.Static | BindingFlags.Public);
+            var del = (method.Invoke(null, null) as Delegate);
+            MessageBox.Show(del.DynamicInvoke(5).ToString());
+        }
+
+        public double EvaluateFunction(string functionText, double xValue)
+        {
+            org.mariuszgromada.math.mxparser.Expression expression = new(functionText, new Argument("x=" + xValue));
+            return expression.calculate();
+        }
     }
 }
