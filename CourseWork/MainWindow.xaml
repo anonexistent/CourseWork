@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:CourseWork"
         mc:Ignorable="d"
         xmlns:oxy="http://oxyplot.org/wpf"
-        Title="Math Charts" Height="650" Width="750" WindowStartupLocation="CenterScreen" >
+        Title="Math Charts" MinHeight="540" Height="650" MinWidth="540" Width="650" WindowStartupLocation="CenterScreen" >
 
     <Grid Margin="15, 15, 15, 15" Background="AliceBlue">
         <Grid.RowDefinitions>
@@ -34,14 +34,13 @@
             <Separator/>
         </DockPanel>
         
-        <UniformGrid Columns="3" Rows="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False">
+        <UniformGrid Columns="3" Rows="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="True">
             <TextBlock FontSize="16" Margin="10 0 10 0" Text="max+" Padding="25 0 25 0"/>
             <TextBlock FontSize="16" Margin="10 0 10 0" Text="max-"/>
             <TextBlock FontSize="16" Margin="10 0 10 0" Text="step"/>
-            <Slider AutoToolTipPlacement="TopLeft" TickFrequency="20" TickPlacement="BottomRight" Margin="10 0 10 0" Padding="25 0 25 0" Maximum="100" Minimum="0"/>
-            <Slider AutoToolTipPlacement="BottomRight" TickFrequency="20" TickPlacement="TopLeft" Margin="10 0 10 0" Maximum="0" Minimum="-100"/>
-            <Slider AutoToolTipPlacement="TopLeft" TickPlacement="Both" TickFrequency="0.1" Margin="10 0 10 0" Maximum="1.01" Minimum="0.1">
-            </Slider>
+            <Slider x:Name="sMax" AutoToolTipPlacement="TopLeft" TickFrequency="20" TickPlacement="BottomRight" Margin="10 0 10 0" Padding="25 0 25 0" Maximum="100" Minimum="0" Value="50"/>
+            <Slider x:Name="sMin" AutoToolTipPlacement="BottomRight" TickFrequency="20" TickPlacement="TopLeft" Margin="10 0 10 0" Maximum="0" Minimum="-100" Value="-50"/>
+            <Slider x:Name="sStep" AutoToolTipPlacement="TopLeft" TickPlacement="Both" TickFrequency="0.1" Margin="10 0 10 0" Maximum="1.01" Minimum="0.1" Value="0.2" LargeChange="0.2"/>
 
         </UniformGrid>
 

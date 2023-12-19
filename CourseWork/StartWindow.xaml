@@ -71,7 +71,7 @@
             </TextBlock.Triggers>
         </TextBlock>
 
-        <RichTextBox x:Name="rtbMain" VerticalScrollBarVisibility="Visible" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="50" FontFamily="Consolas" Opacity="0">
+        <RichTextBox x:Name="rtbMain" VerticalScrollBarVisibility="Visible" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="50" FontFamily="Consolas" Opacity="0" Cursor="Arrow">
             <RichTextBox.Document>
                 <FlowDocument>
                     <Section>

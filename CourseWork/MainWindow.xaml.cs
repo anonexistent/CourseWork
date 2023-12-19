@@ -97,7 +97,7 @@ namespace CourseWork
             LineSeries lineSeries = new LineSeries();
             lineSeries.Color = OxyColors.Blue;
 
-            for (double x = -25; x <= -0.1; x += 0.1)
+            for (double x = sMin.Value; x <= -0.1; x += 0.1)
             {
                 try
                 {
@@ -111,7 +111,7 @@ namespace CourseWork
                 }
             }
 
-            for (double x = 0.1; x <= 25; x += 0.1)
+            for (double x = 0.1; x <= sMax.Value; x += 0.1)
             {
                 try
                 {
