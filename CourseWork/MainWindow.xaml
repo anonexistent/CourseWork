@@ -15,15 +15,15 @@
             <RowDefinition Height="2*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <oxy:PlotView Model="{Binding PlotModel}" Margin="10"/>
-        
+
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border BorderThickness="2" BorderBrush="Red" CornerRadius="15" Padding="5" Background="#FFCAD8E4">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent">
                     <TextBlock Text="F(x) = " FontSize="24" Padding="10" FontWeight="Bold"/>
                     <TextBox x:Name="txtFunction" FontSize="22" MinWidth="350" Margin="10" Padding="1"/>
-                </StackPanel> 
+                </StackPanel>
             </Border>
 
             <Button Content="Bulid" Padding="30 0 30 0" Margin="10" FontSize="20" FontWeight="Bold" Background="#FFA52771" Foreground="#FFFF7400" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
@@ -33,7 +33,7 @@
             <TextBlock DockPanel.Dock="Left" FontSize="14" Text="settings" Padding="2"/>
             <Separator/>
         </DockPanel>
-        
+
         <UniformGrid Columns="3" Rows="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="True">
             <TextBlock FontSize="16" Margin="10 0 10 0" Text="max+" Padding="25 0 25 0"/>
             <TextBlock FontSize="16" Margin="10 0 10 0" Text="max-"/>

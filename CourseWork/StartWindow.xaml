@@ -54,7 +54,7 @@
                 </EventTrigger>
             </TextBlock.Triggers>
         </TextBlock>
-        
+
         <TextBlock x:Name="nextText" Text="Math Charts v 1 .  0" FontSize="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <TextBlock.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
@@ -138,7 +138,7 @@
                     </Section>
                 </FlowDocument>
             </RichTextBox.Document>
-            
+
             <RichTextBox.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
@@ -162,7 +162,7 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-                
+
             </Button.Triggers>
         </Button>
 
