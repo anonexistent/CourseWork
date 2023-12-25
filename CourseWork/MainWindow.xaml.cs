@@ -49,46 +49,6 @@ namespace CourseWork
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            #region +zero
-
-            //string functionText = txtFunction.Text;
-
-            //LineSeries lineSeries = new();
-            //lineSeries.Color = OxyColors.Blue;
-
-            //for (double x = -10; x <= 10; x += 0.1)
-            //{
-            //    double y = EvaluateFunction(functionText, x);
-            //    lineSeries.Points.Add(new(x, y));
-            //}
-
-            //PlotModel.Series.Clear();
-            //PlotModel.Series.Add(lineSeries);
-            //PlotModel.InvalidatePlot(true);
-
-            #endregion
-
-            #region -zero
-
-            //string functionText = txtFunction.Text;
-            //LineSeries lineSeries = new LineSeries();
-            //lineSeries.Color = OxyColors.Blue;
-
-            //for (double x = -10; x <= 10; x += 0.1)
-            //{
-            //    if (x != 0) // Исключаем точку x=0 из графика
-            //    {
-            //        double y = EvaluateFunction(functionText, x);
-            //        lineSeries.Points.Add(new DataPoint(x, y));
-            //    }
-            //}
-
-            //PlotModel.Series.Clear();
-            //PlotModel.Series.Add(lineSeries);
-            //PlotModel.InvalidatePlot(true);
-
-            #endregion
-
             #region +-zero
 
             this.Cursor = Cursors.Wait;
@@ -130,6 +90,46 @@ namespace CourseWork
             PlotModel.InvalidatePlot(true);
 
             this.Cursor = Cursors.Arrow;
+
+            #endregion
+
+            #region +zero
+
+            //string functionText = txtFunction.Text;
+
+            //LineSeries lineSeries = new();
+            //lineSeries.Color = OxyColors.Blue;
+
+            //for (double x = -10; x <= 10; x += 0.1)
+            //{
+            //    double y = EvaluateFunction(functionText, x);
+            //    lineSeries.Points.Add(new(x, y));
+            //}
+
+            //PlotModel.Series.Clear();
+            //PlotModel.Series.Add(lineSeries);
+            //PlotModel.InvalidatePlot(true);
+
+            #endregion
+
+            #region -zero
+
+            //string functionText = txtFunction.Text;
+            //LineSeries lineSeries = new LineSeries();
+            //lineSeries.Color = OxyColors.Blue;
+
+            //for (double x = -10; x <= 10; x += 0.1)
+            //{
+            //    if (x != 0) // Исключаем точку x=0 из графика
+            //    {
+            //        double y = EvaluateFunction(functionText, x);
+            //        lineSeries.Points.Add(new DataPoint(x, y));
+            //    }
+            //}
+
+            //PlotModel.Series.Clear();
+            //PlotModel.Series.Add(lineSeries);
+            //PlotModel.InvalidatePlot(true);
 
             #endregion
         }

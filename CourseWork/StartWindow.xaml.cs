@@ -3,21 +3,16 @@
 namespace CourseWork
 {
     /// <summary>
-    /// Логика взаимодействия для StartWindow.xaml
+    /// StartWindow.xaml welcome
     /// </summary>
     public partial class StartWindow : Window
     {
-        public StartWindow()
-        {
-            InitializeComponent();
-        }
+        public StartWindow() => InitializeComponent();
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, 
+            System.ComponentModel.CancelEventArgs e)
         {
             gMain.Children.Clear();
 
